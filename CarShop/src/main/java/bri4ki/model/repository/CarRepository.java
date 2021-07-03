@@ -10,7 +10,7 @@ import java.util.List;
 public interface CarRepository extends JpaRepository<Car, Integer> {
 
     public Car findByRegister(String register);
-    public List<Car> findAllByOwner_Id(int ownerId);
+    public List<Car> findAllByOwner_Id(Integer ownerId);
     public List<Car> findAllByOwner_IdNotNull();
     public List<Car> findAllByOwner_IdNull();
 

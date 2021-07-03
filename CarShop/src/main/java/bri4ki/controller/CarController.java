@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 public class CarController extends AbstractController{
@@ -31,14 +32,19 @@ public class CarController extends AbstractController{
         return carService.getById(id);
     }
 
+    @GetMapping("/cars")
+    public List<CarWithoutOwnerDTO> getAll(){
+        return carService.getAllCars();
+    }
+
     @PostMapping("/car/{id}")
     public CarWithoutOwnerDTO like(@PathVariable int id, HttpSession session){
         carService.getById(id);
         User u;
-        if(session.getAttribute("LoggedUser") == null){
+        if(session.getAttribute("LOGGED_USER_ID") == null){
             throw new AuthenticationException("You have to be logged in!");
         }else {
-            int loggedId = (int) session.getAttribute("LoggedUser");
+            int loggedId = (int) session.getAttribute("LOGGED_USER_ID");
              u = userRepository.findById(loggedId).get();
             if(u.getLikedCars().contains(carService.getById(id))){
                 throw new BadRequestException("Car already liked");

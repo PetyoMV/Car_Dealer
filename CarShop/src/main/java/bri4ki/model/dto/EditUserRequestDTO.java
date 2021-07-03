@@ -1,6 +1,5 @@
 package bri4ki.model.dto;
 
-
 import bri4ki.util.ValidationUtil;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -16,30 +15,25 @@ import javax.validation.constraints.Size;
 @Setter
 @NoArgsConstructor
 @Component
-public class RegisterRequestUserDTO {
+public class EditUserRequestDTO {
 
     @NotBlank(message = "Username" + ValidationUtil.NOR_NULL_OR_EMPTY)
     private String username;
+    @Email
     @NotBlank(message = "Email" + ValidationUtil.NOR_NULL_OR_EMPTY)
-    @Email(message = "Not valid email!")
     private String email;
-    @NotBlank(message = "Password" + ValidationUtil.NOR_NULL_OR_EMPTY)
-    private String password;
+    @NotBlank(message = "Old Password" + ValidationUtil.NOR_NULL_OR_EMPTY)
+    @JsonProperty("old_password")
+    private String oldPassword;
+    @NotBlank(message = "New Password" + ValidationUtil.NOR_NULL_OR_EMPTY)
+    @JsonProperty("new_password")
+    private String newPassword;
     @NotBlank(message = "Confirm Password" + ValidationUtil.NOR_NULL_OR_EMPTY)
-    @JsonProperty("confirm_password")
-    private String confirmPassword;
-    private String phone;
+    @JsonProperty("confirm_new_password")
+    private String confirmNewPassword;
     @NotBlank(message = "Address" + ValidationUtil.NOR_NULL_OR_EMPTY)
-    @Size(min = ValidationUtil.MIN_ADDRESS_LENGTH, message = ValidationUtil.LENGTH_LIMITS_FOR_ADDRESS)
+    @Size(min = 5, message = ValidationUtil.LENGTH_LIMITS_FOR_ADDRESS)
     private String address;
-
-    public RegisterRequestUserDTO(String name, String email, String password, String confirmPassword, String phone, String address) {
-        this.username = name;
-        this.email = email;
-        this.password = password;
-        this.confirmPassword = confirmPassword;
-        this.phone = phone;
-        this.address = address;
-    }
+    private String phone;
 
 }

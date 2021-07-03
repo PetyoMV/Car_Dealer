@@ -41,6 +41,7 @@ public class CarImageService {
             resource =  new UrlResource(path.toUri());
         } catch (MalformedURLException e) {
             e.printStackTrace();
+           throw new NotFoundException(e.getMessage());
         }
         return ResponseEntity
                 .ok()

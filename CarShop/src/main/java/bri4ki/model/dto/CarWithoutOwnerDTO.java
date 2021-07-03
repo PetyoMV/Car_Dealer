@@ -2,9 +2,11 @@ package bri4ki.model.dto;
 
 import bri4ki.model.pojo.Car;
 import bri4ki.model.pojo.CarImage;
+import bri4ki.model.pojo.Discount;
 import bri4ki.model.pojo.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,6 +29,8 @@ public class CarWithoutOwnerDTO {
     private String register;
     private List<CarImage> carImages;
     private int likers;
+    private int price;
+    private Discount discount;
 
 
     public CarWithoutOwnerDTO(Car car){
@@ -38,5 +42,9 @@ public class CarWithoutOwnerDTO {
         register = car.getRegister();
         carImages = car.getCarImages();
         likers = car.getLikers().size();
+        price = car.getPrice();
+        discount = car.getDiscounts();
+
     }
+
 }

@@ -25,6 +25,12 @@ public class SessionManager {
             return userRepository.findById(userId).get();
         }
     }
+    public boolean isSomeoneLoggedIn(HttpSession session){
+        if (session.getAttribute(LOGGED_USER_ID) == null){
+            return false;
+        }
+        return true;
+    }
 
     public void loginUser(HttpSession session, int id) {
         session.setAttribute(LOGGED_USER_ID,id);

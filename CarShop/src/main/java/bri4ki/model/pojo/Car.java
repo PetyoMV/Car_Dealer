@@ -2,7 +2,9 @@ package bri4ki.model.pojo;
 
 import bri4ki.model.dto.AddCarRequestDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,8 +38,13 @@ public class Car {
     @ManyToMany(mappedBy = "likedCars")
     @JsonBackReference
     private List<User> likers;
-
-
+    private int price;
+    @ManyToOne()
+    @JoinColumn(name = "discount_id")
+    @JsonBackReference
+    private Discount discounts;
+    @JsonProperty("base_price")
+    private int basePrice;
 
     public Car(AddCarRequestDTO carDTO){
         model = carDTO.getModel();
@@ -46,6 +53,8 @@ public class Car {
         km = carDTO.getKm();
         register = carDTO.getRegister();
         likers = new ArrayList<>();
+        price = carDTO.getPrice();
+        basePrice = carDTO.getPrice();
     }
 
     @Override
